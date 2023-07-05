@@ -33,9 +33,11 @@ Moving and filling are made by `drawBitmap` for Adafruit and `fastPixel` for TFT
 	  }
 	}
 	#endif
-	
+
+ 	int y = 1;
 	void loop() {
 	#ifdef LIB_Adafruit_ILI9341
+ 	  uint16_t data[240];
 	  tft.scrollTo(y);
 	  for (uint8_t x = 0; x < ILI9341_TFTWIDTH; x++) {
 	    data[x] = y + x << 5;
@@ -61,11 +63,6 @@ Compatibility issues encountered for TFT\_ILI9341 library:
  * Lack of `print` and `println` functions witch is very helpful for printing the texts;
  * Lack of `setScrollMargins`, `scrollTo` and `drawBitmap` from buffer important for scrolling of screen.
 
-Performance issues encountered for TFT\_ILI9341 library: 
-
- * for Arduino UNO (ATMega328) and Leonardo (ATMega32u4) "Fill screen by bitmaps" is 1.6 times slower than Adafruit_ILI9341 library and approximately 2 time slower than than Adafruit_ILI9341 for avr128db48;
- * for Arduino Optiboot / avr128db48 "Fill screen by pixels" is more than 3 times slower than for other 2 MCUs.
-
 **Benchmark of unified graphic and scroll tests built on Adafruit_ILI9341 and TFT_ ILI9341 libraries:**
 
 ![image](UniedTestResuls.jpg)
@@ -75,6 +72,11 @@ Performance issues encountered for TFT\_ILI9341 library:
  * Memory usage numbers are as reported in run-time and slightly different than one reported by the compiler;
  * Preparing of the data for filling the screen by pixels or bitmaps are made to be as fast as possible;
  * Speed up figure means the operation is that many times faster.
+
+Performance issues encountered for TFT\_ILI9341 library: 
+
+ * for Arduino UNO (ATMega328) and Leonardo (ATMega32u4) "Fill screen by bitmaps" is 1.6 times slower than Adafruit_ILI9341 library and approximately 2 time slower than than Adafruit_ILI9341 for avr128db48;
+ * for Arduino Optiboot / avr128db48 "Fill screen by pixels" is more than 3 times slower than for other 2 MCUs.
 
 Helpful information about the hardware and software setup is written in 'Unified_ili9340_Graphic_Test_Results' `docx` and `pdf` files:
 
